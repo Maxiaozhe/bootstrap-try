@@ -23,18 +23,21 @@
 
 <body>
   <div class="container bg-teal">
-    <h1 class="m-1 p-1 text-center text-danger">Bootstrapの練習</h1>
+    <h1 class="m-1 p-1 text-center text-primary">Bootstrapの練習</h1>
     <h3 class="bg-center text-success font-weight-bolder">
       Bootstrap を練習します
     </h3>
     <hr />
-    <h2 class="m-2 text-black-70 text-hide">Grid system</h2>
+    <h2 class="m-2 text-black-70 text-center text-secondary">Grid system</h2>
+    <button id="showGrid" type="button" data-target=".grid1" class="btn btn-success m-2">show Grid</button>
     <div class="container grid1"></div>
     <div class="container heading"></div>
-    <div class="container table">
+    <button id="showTable" type="button" data-target=".container-table" class="btn btn-warning m-2">show Table</button>
+    <div class="container container-table">
       <h2 class="text-center">Table</h2>
     </div>
-    <div class="container hide">
+    <button id="showCode" type="button" data-target=".container-code" class="btn btn-secondary">show code</button>
+    <div class="container container-code hide">
       <pre>
             <code class="card bg-purple bg-dark text-light col-8">
 $(function () {
@@ -50,6 +53,7 @@ $(function () {
     <div class="container color-table">
       <h2 class="text-center">Color Rows</h2>
     </div>
+    <button id="showimgs" type="button" data-target=".images" class="btn btn-danger m-2">show images</button>
     <div class="container images">
       <h2 class="text-center">Image</h2>
     </div>

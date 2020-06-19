@@ -23,9 +23,9 @@ const messages=[
 ]
 
 //draw grid
-function drawgrid(show) {
+function drawgrid(container,show) {
   if (!show) {
-    $(".grid1").hide();
+    container.hide();
     return;
   }
   let rows = [];
@@ -48,7 +48,7 @@ function drawgrid(show) {
     // rows.push("</div>");
   }
   rows.push("</div>");
-  $(".grid1").html(rows.join(""));
+  container.html(rows.join(""));
 }
 //見出し（H1~H6）
 function drawHeading(show) {
@@ -63,9 +63,9 @@ function drawHeading(show) {
   $(".heading").html(html.join(""));
 }
 //table 描画
-function drawTable(show) {
+function drawTable(container,show) {
   if (!show) {
-    $(".table").hide();
+    container.hide();
     return;
   }
   let html = [];
@@ -91,7 +91,7 @@ function drawTable(show) {
   }
   html.push("</tbody>");
   html.push("</table");
-  $(".table").html(html.join(""));
+  container.html(html.join(""));
 }
 function drawColorTable(show) {
   if (!show) {
@@ -134,9 +134,9 @@ function drawColorTable(show) {
 
   $(".color-table").html(html.join(""));
 }
-function drawImages(show) {
+function drawImages(container,show) {
   if (!show) {
-    $(".images").hide();
+    container.hide();
     return;
   }
   let html=[];
@@ -150,11 +150,10 @@ function drawImages(show) {
     );
   }
   html.push( "</div>");
-  $(".images").html(html.join(""));
+  container.html(html.join(""));
 }
-function showMessage(dlg){
 
-}
+
 
 function showToast(title,{message,type},time){
   let html=[];
@@ -165,7 +164,7 @@ function showToast(title,{message,type},time){
     $("body").append('<div id="toast-container" style="position: absolute; top: 0; right: 0 ;width:auto; height:100%"></div>');
   }
   html.push(
-   `<div id="${id}" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true">
+   `<div id="${id}" class="toast rounded-rounded-lg" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header bg-${type}">
         <strong class="mr-auto text-white">${title}</strong>
         <small class="text-white-50">${time} mins ago</small>
@@ -182,7 +181,7 @@ function showToast(title,{message,type},time){
   $(`#${id}`).toast({
     animation:true,
     autohide:true,
-    delay:2000
+    delay:5000
   });
 
   $(`#${id}`).toast('show');
@@ -190,19 +189,44 @@ function showToast(title,{message,type},time){
 
 $(function () {
   //draw grid
-  drawgrid(false);
+  $("#showGrid").click(function(){
+    let target = $(this).data("target");
+    let isshow = !$(this).data("show");
+    drawgrid($(target),isshow);
+    $(this).data("show",isshow);
+  });
+  
   //見出し書く
   drawHeading(false);
-  drawTable(false);
+  $("#showTable").click(function(){
+    let target = $(this).data("target");
+    let isshow = !$(this).data("show");
+    drawTable($(target),isshow);
+    $(this).data("show",isshow);
+  });
+ 
   drawColorTable(false);
-  drawImages(false);
+  
+  $("#showimgs").click(function(){
+    let target = $(this).data("target");
+    let isshow = !$(this).data("show");
+    drawImages($(target),isshow);
+    $(this).data("show",isshow);
+  });
+ 
+  
   $('[data-toggle="popover"]').popover(
     {
       trigger:'focus'
     }
   );
- 
-  $('#showToast').click(()=>{
+  $("#showCode").click(function(){
+    let target = $(this).data("target");
+    let isshow = !$(this).data("show");
+    isshow? $(target).show():$(target).hide();
+    $(this).data("show",isshow);
+  });
+  $('#showToast').click(function(){
     let id= Math.round((Math.random() * 9 ) / 2);
     showToast('System Message',messages[id],1);
   });
